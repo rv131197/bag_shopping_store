@@ -33,7 +33,6 @@ class App extends React.Component {
               ...snapshot.data()
             }
           })
-          console.log(this.state)
         }) // it sends the snapshot object representing data stored in db, the moment code runs
       }else{
         this.setState({currentUser: userAuth})
