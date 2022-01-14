@@ -12,6 +12,36 @@ const config = {
         measurementId: "G-17097GC753"
 }  // this is the config object from firebase
 
+export const createUserProfileDocument = async (userAuth, additionalData) => { //object that we get back from auth library
+    if(!userAuth) return; // if there's no user, dont do anything and return
+
+    const userRef = firestore.doc(`users/${userAuth.uid}`)
+    const snapshot = await userRef.get(); // async call, it simply refers to the data
+
+    if(!snapshot.exists){
+        const { displayName, email } = userAuth;
+        const createdAt = new Date(); // new js object, tells current time and date when it was invoked
+
+        try{
+            await userRef.set({ // creating data in that place if snapshot doesn't exist
+                displayName,
+                email,
+                createdAt,
+                ...additionalData
+            })
+
+        }catch(err){
+            console.log('error creating the user', err.message)
+        }
+    }
+
+    // console.log(snapshot)
+
+    // console.log(firestore.doc('/users/1256hjbrfj'))
+
+    return userRef;
+}
+
 firebase.initializeApp(config); // initializing our app with the above config
 
 export const auth = firebase.auth(); // accessing auth() method on firebase, anything related to authentication
