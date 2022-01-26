@@ -10,7 +10,7 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import {connect} from 'react-redux';
 import {setCurrentUser} from '../src/redux/user/user.action';
 import {createStructuredSelector} from 'reselect';
-import { selectCurrentUser } from "./redux/user/user.selector";
+import { selectCurrentUser } from "./redux/user/user.selectors";
  
 class App extends React.Component {
 
